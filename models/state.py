@@ -9,6 +9,7 @@ from sqlalchemy.orm import relationship
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 
+
 class State(BaseModel, Base):
     """ state """
     if models.storage_t == "db":
