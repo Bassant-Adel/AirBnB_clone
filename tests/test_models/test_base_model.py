@@ -7,7 +7,7 @@ import inspect
 import unittest
 from unittest import mock
 import pep8 as pycodestyle
-from datetime import datetime
+from datetime import datetime, timedelta
 BaseModel = models.base_model.BaseModel
 module_doc = models.base_model.__doc__
 
@@ -80,17 +80,23 @@ class TestBaseModel(unittest.TestCase):
     def test_datetime_attributes(self):
         """Test datetime"""
 
-        tic = datetime.now()
         inst1 = BaseModel()
-        toc = datetime.now()
-        self.assertTrue(tic <= inst1.created_at <= toc)
-        time.sleep(1e-4)
-        tic = datetime.now()
+        tic = inst1.created_at
+
+        time.sleep(0.001)
+
         inst2 = BaseModel()
-        toc = datetime.now()
+        toc = inst2.created_at
+
+        self.assertTrue(tic <= inst1.created_at <= toc)
         self.assertTrue(tic <= inst2.created_at <= toc)
+
+        time.sleep(0.001)
+
+        inst2.updated_at = datetime.now()
+
         self.assertEqual(inst1.created_at, inst1.updated_at)
-        self.assertEqual(inst2.created_at, inst2.updated_at)
+        self.assertNotEqual(inst2.created_at, inst2.updated_at)
         self.assertNotEqual(inst1.created_at, inst2.created_at)
         self.assertNotEqual(inst1.updated_at, inst2.updated_at)
 
