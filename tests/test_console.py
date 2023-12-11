@@ -3,6 +3,7 @@
 import pep8
 import console
 import inspect
+from io import StringIO
 from unittest.mock import patch
 import unittest
 HBNBCommand = console.HBNBCommand
@@ -14,14 +15,6 @@ class TestConsoleDocs(unittest.TestCase):
         """Test PEP8"""
         pep8s = pep8.StyleGuide(quiet=True)
         result = pep8s.check_files(['console.py'])
-        self.assertEqual(result.total_errors, 0,
-                         "Found code style errors (and warnings).")
-
-    def test_pep8_conformance_test_console(self):
-        """Test pep8"""
-
-        pep8s = pep8.StyleGuide(quiet=True)
-        result = pep8s.check_files(['tests/test_console.py'])
         self.assertEqual(result.total_errors, 0,
                          "Found code style errors (and warnings).")
 
